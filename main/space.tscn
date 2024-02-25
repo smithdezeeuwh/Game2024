@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://df88cqc4y6e63"]
+
+[ext_resource type="PackedScene" uid="uid://4wjm3wk7nnpb" path="res://object/spaceship.tscn" id="1_6igqb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6w3ce"]
+ground_curve = 0.0324901
+
+[sub_resource type="Sky" id="Sky_8pu2x"]
+sky_material = SubResource("ProceduralSkyMaterial_6w3ce")
+
+[sub_resource type="Environment" id="Environment_xmrji"]
+background_mode = 2
+sky = SubResource("Sky_8pu2x")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_x7ilx"]
+size = Vector2(200, 200)
+
+[node name="space" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xmrji")
+
+[node name="space ship" parent="." instance=ExtResource("1_6igqb")]
+
+[node name="Camera3D" type="Camera3D" parent="space ship"]
+transform = Transform3D(1, 0, 0, 0, 0.965016, 0.262189, 0, -0.262189, 0.965016, 0, 4.42431, 10.7167)
+fov = 100.1
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.131027, 0.482527, -2.62495e-08, 0.965053, 0.262054, -0.5, -0.226946, 0.83576, 0, 4.42431, 10.7167)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.517, 0)
+mesh = SubResource("PlaneMesh_x7ilx")
