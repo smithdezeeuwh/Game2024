@@ -1,13 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://4wjm3wk7nnpb"]
+[gd_scene load_steps=9 format=3 uid="uid://xwpkgkyyw4lu"]
 
-[ext_resource type="Script" path="res://CharacterBody3D.gd" id="1_sokio"]
-[ext_resource type="PackedScene" uid="uid://dscxu3qigokh5" path="res://assets/Omen.gltf" id="2_clhl6"]
+[ext_resource type="Script" path="res://scripts/ship.gd" id="1_ft3ud"]
+[ext_resource type="PackedScene" uid="uid://dscxu3qigokh5" path="res://assets/ships/Omen.gltf" id="2_clhl6"]
+[ext_resource type="PackedScene" uid="uid://63bfnogv8ebr" path="res://main/ui.tscn" id="3_wq0ke"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n145x"]
 size = Vector3(12, 5, 12)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nn6al"]
+transparency = 1
+albedo_color = Color(0.466667, 0.545098, 0.956863, 0.262745)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_b366r"]
+material = SubResource("StandardMaterial3D_nn6al")
+bottom_radius = 5.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qry8d"]
+height = 23.7351
+radius = 6.9508
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3mvsh"]
+size = Vector3(11.0979, 13.6197, 4.20675)
+
 [node name="space ship" type="CharacterBody3D"]
-script = ExtResource("1_sokio")
+script = ExtResource("1_ft3ud")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_n145x")
@@ -17,3 +33,34 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 skeleton = NodePath("../..")
 
 [node name="Omen" parent="MeshInstance3D" instance=ExtResource("2_clhl6")]
+
+[node name="mine_tool_mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -6.0447e-07, -1.15779, 0, 13.8287, -5.06086e-08, 0, -0.560176, -19.5555)
+visible = false
+mesh = SubResource("CylinderMesh_b366r")
+skeleton = NodePath("")
+
+[node name="mine_tool_area" type="Area3D" parent="."]
+
+[node name="mine_tool_Collision_Shape" type="CollisionShape3D" parent="mine_tool_area"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, -0.605429, -14.9261)
+shape = SubResource("CylinderShape3D_qry8d")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 4.42431, 10.7167)
+
+[node name="UI" parent="." instance=ExtResource("3_wq0ke")]
+
+[node name="docking_area" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, -0.605429, -20.262)
+
+[node name="docking_area" type="CollisionShape3D" parent="docking_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.2523, 0.192616)
+shape = SubResource("BoxShape3D_3mvsh")
+
+[connection signal="area_entered" from="mine_tool_area" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="mine_tool_area" to="." method="_on_mine_tool_area_area_exited"]
+[connection signal="body_entered" from="mine_tool_area" to="." method="_on_mine_tool_area_body_entered"]
+[connection signal="body_exited" from="mine_tool_area" to="." method="_on_mine_tool_area_body_exited"]
+[connection signal="area_entered" from="docking_area" to="." method="_on_docking_area_area_entered"]
+[connection signal="area_exited" from="docking_area" to="." method="_on_docking_area_area_exited"]

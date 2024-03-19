@@ -1,6 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://df88cqc4y6e63"]
+[gd_scene load_steps=8 format=3 uid="uid://bh8f084728qog"]
 
-[ext_resource type="PackedScene" uid="uid://4wjm3wk7nnpb" path="res://object/spaceship.tscn" id="1_6igqb"]
+[ext_resource type="Script" path="res://scripts/space.gd" id="1_0j6fg"]
+[ext_resource type="PackedScene" uid="uid://xwpkgkyyw4lu" path="res://object/spaceship.tscn" id="1_6igqb"]
+[ext_resource type="PackedScene" uid="uid://dqoh8bp12s8ut" path="res://object/space_station.tscn" id="4_t7xht"]
+[ext_resource type="PackedScene" uid="uid://bure7v2p5ga4e" path="res://assets/colors/astroids/asteroid_no_1.tscn" id="11_ibc4w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6w3ce"]
 ground_curve = 0.0324901
@@ -12,23 +15,110 @@ sky_material = SubResource("ProceduralSkyMaterial_6w3ce")
 background_mode = 2
 sky = SubResource("Sky_8pu2x")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_x7ilx"]
-size = Vector2(200, 200)
-
 [node name="space" type="Node3D"]
+script = ExtResource("1_0j6fg")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_xmrji")
 
 [node name="space ship" parent="." instance=ExtResource("1_6igqb")]
 
-[node name="Camera3D" type="Camera3D" parent="space ship"]
-transform = Transform3D(1, 0, 0, 0, 0.965016, 0.262189, 0, -0.262189, 0.965016, 0, 4.42431, 10.7167)
-fov = 100.1
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866025, -0.131027, 0.482527, -2.62495e-08, 0.965053, 0.262054, -0.5, -0.226946, 0.83576, 0, 4.42431, 10.7167)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.517, 0)
-mesh = SubResource("PlaneMesh_x7ilx")
+[node name="astroids" type="Node3D" parent="."]
+
+[node name="Asteroid_no_1" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 7.25715, 7.82625, 8.76405)
+
+[node name="Asteroid_no_2" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, -41.611, 7.82625, 8.76405)
+astroid_ore_type = "gold"
+
+[node name="Asteroid_no_3" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, -41.611, 7.82625, -67.9564)
+astroid_ore_type = "copper"
+
+[node name="Asteroid_no_4" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 31.2657, 7.82625, -67.9564)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_5" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 56.7825, 7.82625, -67.9564)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_6" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 56.7825, 7.82625, -50.9889)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_7" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 56.7825, 7.82625, -32.6255)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_8" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 56.7825, 7.82625, -15.9964)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_9" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 56.7825, 7.82625, 2.29968)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_10" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 56.7825, 7.82625, 18.6073)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_12" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 56.7825, 7.82625, 36.2407)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_11" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(0.502252, -0.798152, 0.332711, -0.552257, 1.85113e-16, 0.833674, -0.665399, -0.602456, -0.440785, 1.87607, 23.3892, 63.4566)
+
+[node name="Asteroid_no_13" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 7.25715, 34.9208, 8.76405)
+
+[node name="Asteroid_no_14" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, -41.611, 34.9208, 8.76405)
+astroid_ore_type = "gold"
+
+[node name="Asteroid_no_15" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, -41.611, 34.9208, -67.9564)
+astroid_ore_type = "copper"
+
+[node name="Asteroid_no_16" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 31.2657, 34.9208, -67.9564)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_17" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 56.7825, 34.9208, -67.9564)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_18" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 56.7825, 34.9208, -50.9889)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_19" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 56.7825, 34.9208, -32.6255)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_20" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 56.7825, 34.9208, -15.9964)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_21" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 56.7825, 34.9208, 2.29968)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_22" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 56.7825, 34.9208, 18.6073)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_23" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 56.7825, 34.9208, 36.2407)
+astroid_ore_type = "diamond"
+
+[node name="Asteroid_no_24" parent="astroids" instance=ExtResource("11_ibc4w")]
+transform = Transform3D(0.502252, -0.798152, 0.332711, -0.552257, 1.85113e-16, 0.833674, -0.665399, -0.602456, -0.440785, 1.87607, 50.4837, 63.4566)
+
+[node name="space_station" parent="." instance=ExtResource("4_t7xht")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.397, 3.72189, -94.3243)

@@ -1,0 +1,158 @@
+[gd_scene load_steps=2 format=3 uid="uid://63bfnogv8ebr"]
+
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_ih32v"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_ih32v")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="fuel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "fuel"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/fuel"]
+layout_mode = 0
+offset_left = -50.0
+offset_top = -15.0
+offset_right = 30.0
+offset_bottom = 25.0
+color = Color(0, 0, 0, 0.196078)
+
+[node name="storage" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "storage"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/storage"]
+layout_mode = 0
+offset_top = -14.0
+offset_right = 330.0
+offset_bottom = 26.0
+color = Color(0, 0, 0, 0.235294)
+
+[node name="bank" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "bank"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/bank"]
+layout_mode = 0
+offset_top = -14.0
+offset_right = 100.0
+offset_bottom = 26.0
+color = Color(0, 0, 0, 0.235294)
+
+[node name="MarginContainer_progressbar" type="MarginContainer" parent="."]
+offset_left = 451.0
+offset_top = 364.0
+offset_right = 751.0
+offset_bottom = 596.0
+size_flags_horizontal = 4
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer_progressbar"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+
+[node name="shop" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 539.0
+offset_top = 134.0
+offset_right = 612.0
+offset_bottom = 165.0
+
+[node name="MarginContainer_shop" type="MarginContainer" parent="shop"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -399.5
+offset_top = -134.0
+offset_right = 400.5
+offset_bottom = 166.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="shop/MarginContainer_shop"]
+layout_mode = 2
+color = Color(0.054902, 0.627451, 0.87451, 1)
+
+[node name="Label" type="Label" parent="shop/MarginContainer_shop"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "SHOP"
+
+[node name="MarginContainer_shop_buttons" type="MarginContainer" parent="shop"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -375.0
+offset_top = -125.0
+offset_right = 375.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="upgrade_minetool" type="Button" parent="shop/MarginContainer_shop_buttons"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "upgrade mine tool"
+
+[node name="upgrade_storage" type="Button" parent="shop/MarginContainer_shop_buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "upgrade storage"
+
+[node name="upgrade_booster" type="Button" parent="shop/MarginContainer_shop_buttons"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "upgrade booster"
+
+[node name="sell_ore" type="Button" parent="shop/MarginContainer_shop_buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Sell Ore"
+
+[node name="Message" type="Label" parent="shop/MarginContainer_shop_buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "brokey
+"
+
+[connection signal="button_down" from="shop/MarginContainer_shop_buttons/upgrade_minetool" to="." method="_on_upgrade_minetool_button_down"]
+[connection signal="button_down" from="shop/MarginContainer_shop_buttons/upgrade_storage" to="." method="_on_upgrade_storage_button_down"]
+[connection signal="button_down" from="shop/MarginContainer_shop_buttons/upgrade_booster" to="." method="_on_upgrade_booster_button_down"]
+[connection signal="button_down" from="shop/MarginContainer_shop_buttons/sell_ore" to="." method="_on_sell_ore_button_down"]
