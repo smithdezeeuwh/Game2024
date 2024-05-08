@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0nt4n13a6448"]
+
+[ext_resource type="Script" path="res://addons/starlight/StarManager.gd" id="1_u877o"]
+
+[node name="Stars" type="Node3D"]
+script = ExtResource("1_u877o")

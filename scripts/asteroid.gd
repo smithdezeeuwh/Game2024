@@ -17,8 +17,35 @@ var diamond = preload("res://assets/colors/diamond_color.tres")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	set_ore_type()
 	unmined()
+	color_set()
 	#sets color of ore when spawned
+	
+		
+	
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	color_set()
+	
+#called when astroid is mined
+func mined():
+	ore.hide()
+	is_astroid_mined = true
+
+func unmined():
+	ore.show()
+	is_astroid_mined = false
+	
+	#passes astroid ore type to ship script
+func pass_ore():
+	return astroid_ore_type
+	#passes the state of astroid ore avaiblitty to ship script
+func is_astroid_mined_check():
+	return is_astroid_mined
+	
+func color_set():
 	if astroid_ore_type == "iron":
 		for j_index in range(ore_mesh_items.size()):
 			ore_mesh_items[j_index].set_surface_override_material(0, iron)
@@ -31,25 +58,17 @@ func _ready():
 	if astroid_ore_type == "diamond":
 		for j_index in range(ore_mesh_items.size()):
 			ore_mesh_items[j_index].set_surface_override_material(0, diamond)
-		
 	
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-	
-#called when astroid is mined
-func mined():
-	ore.hide()
-	is_astroid_mined = true
-
-func unmined():
-	ore.show()
-	is_astroid_mined = false
-	#passes astroid ore type to ship script
-func pass_ore():
-	return astroid_ore_type
-	#passes the state of astroid ore avaiblitty to ship script
-func is_astroid_mined_check():
-	return is_astroid_mined
-
+func set_ore_type():
+	var x
+	if astroid_ore_type != "":
+		x = round(randf_range(0,100))
+		if x < 10:
+			astroid_ore_type = "diamond"
+		if x > 10 and x < 25:
+			astroid_ore_type = "gold"
+		if x > 25 and x < 50:
+			astroid_ore_type = "copper"
+		if x > 50 and x < 100:
+			astroid_ore_type = "iron"

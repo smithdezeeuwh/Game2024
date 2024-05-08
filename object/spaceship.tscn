@@ -23,6 +23,7 @@ radius = 6.9508
 size = Vector3(11.0979, 13.6197, 4.20675)
 
 [node name="space ship" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.9323, 0)
 script = ExtResource("1_ft3ud")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -48,6 +49,7 @@ shape = SubResource("CylinderShape3D_qry8d")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 4.42431, 10.7167)
+fov = 90.0
 
 [node name="UI" parent="." instance=ExtResource("3_wq0ke")]
 

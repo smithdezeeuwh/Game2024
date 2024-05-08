@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://63bfnogv8ebr"]
+[gd_scene load_steps=3 format=3 uid="uid://63bfnogv8ebr"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_ih32v"]
+[ext_resource type="Texture2D" uid="uid://qu727klgno8" path="res://assets/space_loading_screen.jpg" id="2_xbalb"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_ih32v")
@@ -152,7 +153,27 @@ size_flags_vertical = 8
 text = "brokey
 "
 
+[node name="loading_screen" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_xbalb")
+
+[node name="skip_loading" type="Button" parent="loading_screen"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -156.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "skip loading screen"
+
 [connection signal="button_down" from="shop/MarginContainer_shop_buttons/upgrade_minetool" to="." method="_on_upgrade_minetool_button_down"]
 [connection signal="button_down" from="shop/MarginContainer_shop_buttons/upgrade_storage" to="." method="_on_upgrade_storage_button_down"]
 [connection signal="button_down" from="shop/MarginContainer_shop_buttons/upgrade_booster" to="." method="_on_upgrade_booster_button_down"]
 [connection signal="button_down" from="shop/MarginContainer_shop_buttons/sell_ore" to="." method="_on_sell_ore_button_down"]
+[connection signal="pressed" from="loading_screen/skip_loading" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="loading_screen/skip_loading" to="." method="_on_skip_loading_pressed"]

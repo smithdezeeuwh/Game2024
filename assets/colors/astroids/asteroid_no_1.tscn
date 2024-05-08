@@ -62,7 +62,7 @@ material = SubResource("StandardMaterial3D_7uyvg")
 [sub_resource type="SphereShape3D" id="SphereShape3D_rko20"]
 radius = 6.14088
 
-[node name="Asteroid_no_1" type="Node3D"]
+[node name="Asteroid" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 13.0666, -0.00185347, 13.6198)
 script = ExtResource("1_qsqhu")
 astroid_ore_type = "iron"

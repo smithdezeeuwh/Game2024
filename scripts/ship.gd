@@ -42,7 +42,7 @@ var diamond_ore_value = 4
 var fuel = 0
 
 # money/ shop
-var bank = 0
+var bank = 10000
 var shop_upgrade_multiplier = 1.2
 var booster_upgrade_cost = 5
 var storage_upgrade_cost = 5
@@ -51,14 +51,26 @@ var booster_level = 1
 var storage_level = 1
 var mine_tool_level = 1
 
+#save data
+var file
+#var save_data = [storage1,2,3,4,boosterlevel,storagelevel,minetoollevel,bank]
+#save_data = [storage[0],storage[1],storage[2],storage[3],booster_level,storage_level,mine_tool_level,bank]
+var save_data_read = [0,0,0,0,0,0,0,0]
+var save_data_write = [0,0,0,0,0,0,0,0]
+
+
 @onready var mine_tool_area = $mine_tool_area
 @onready var mine_tool_mesh = $mine_tool_mesh
 @onready var UI = $UI
 
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	save_data_read_func()
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED'
+	pass
 
 func get_input(delta):
+	if Input.is_action_pressed("menu"):
+		get_tree().change_scene_to_file("res://main/main_menu.tscn")
 	if Input.is_action_pressed("throttle_up"):
 		forward_speed = lerpf(forward_speed, max_speed, acceleration * delta)
 	if Input.is_action_pressed("throttle_down"):
@@ -81,6 +93,8 @@ func get_input(delta):
 
 
 func _physics_process(delta):
+	#auto saving
+	save_data_write_func()
 	get_input(delta)
 	transform.basis = transform.basis.rotated(transform.basis.z, roll_input * roll_speed * delta)
 	transform.basis = transform.basis.rotated(transform.basis.x, pitch_input * pitch_speed * delta)
@@ -102,10 +116,12 @@ func mine():
 	UI.mining_progress_bar_visiblity(true)
 	
 	
+	
 #handles astroid and ore
 func mine_finished():
 	if if_in_astroid_range == true:
 		astroid_ore = astroid.pass_ore()
+		print(astroid_ore)
 		astroid.mined()
 		storage_func("add",astroid_ore, 1)
 	
@@ -114,7 +130,7 @@ func mining_progress_fill(value):
 	if begin_mine == true and mining_progress_value <= 100:
 		mining_progress_value += value * mining_multiplier
 		UI.set_mining_progress_bar(mining_progress_value)
-	if mining_progress_value == 100:
+	if mining_progress_value >= 100:
 		mine_finished()
 		mining_progress_value = 0
 		begin_mine = false
@@ -166,6 +182,7 @@ func shop_visible(activation):
 	if activation == true:
 		UI.shop_visibility(true) 
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		
 	if activation == false:
 		UI.shop_visibility(false) 
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -176,29 +193,25 @@ func shop(command):
 	if command == "upgrade booster":
 		if bank >= booster_upgrade_cost:
 			print(command)
-			acceleration = acceleration * (shop_upgrade_multiplier/2 + 1)
-			max_speed = max_speed * shop_upgrade_multiplier
+			upgrade("booster")
+			
 			bank -= booster_upgrade_cost
 			booster_upgrade_cost = round(booster_upgrade_cost * 1.4)
-			booster_level += 1
+			
 	if command == "upgrade minetool":
-		if bank >= mine_tool_upgrade_cost:
+		if bank >= mine_tool_upgrade_cost and mining_multiplier !=50:
 			print(command)
 			bank -= mine_tool_upgrade_cost
 			mine_tool_upgrade_cost = round(mine_tool_upgrade_cost * 1.4)
-			mining_multiplier = mining_multiplier + 1
-			mine_tool_level += 1
+			upgrade("minetool")
+			
 	if command == "upgrade storage":
 		if bank >= storage_upgrade_cost: 
 			print(command)
 			bank -= storage_upgrade_cost
 			storage_upgrade_cost = round(storage_upgrade_cost * 1.4)
-			storage_level += 1
-			storage_max[0] = storage_max[0] * shop_upgrade_multiplier
-			storage_max[1] = storage_max[1] * shop_upgrade_multiplier
-			storage_max[2] = storage_max[2] * shop_upgrade_multiplier
-			storage_max[3] = storage_max[3] *shop_upgrade_multiplier
-		
+			upgrade("storage")
+			
 
 
 
@@ -230,3 +243,53 @@ func storage_func(command, ore, amount):
 			storage[2] = 0
 			bank += storage[3] * diamond_ore_value
 			storage[3] = 0
+
+#this is just a func to pass from space.gd to ui.gd to hide astroid loading screen
+func loading_astroids(bol):
+	UI.loading_astroids(bol)
+
+#saves data for use in game scene
+func save_data_write_func():
+	var file = FileAccess.open("user://" + "space_miner_save.txt", FileAccess.WRITE)
+	save_data_write = [storage[0],storage[1],storage[2],storage[3],booster_level,storage_level,mine_tool_level,bank]
+	#print(str(save_data_write) + "write")
+	var save_string
+	save_string = str(save_data_write[0]) + " " +str(save_data_write[1]) + " " +str(save_data_write[2]) + " " +str(save_data_write[3]) + " " +str(save_data_write[4]) + " " +str(save_data_write[5]) + " " +str(save_data_write[6])+ " " + str(save_data_write[7])
+	file.store_string(save_string)
+
+#used when opening game to old save
+func save_data_read_func():
+	var file = FileAccess.open("user://" + "space_miner_save.txt", FileAccess.READ)
+	var save_data_read_array: Array
+	save_data_read = file.get_as_text(true)
+	if int(save_data_read) != 0:
+		save_data_read_array = save_data_read.split(" ")
+		for i in 8:
+			save_data_read_array[i]  = int(save_data_read_array[i])
+		print("save_data_read_array")
+		print(save_data_read_array)
+		storage[0] = save_data_read_array[0]
+		storage[1] = save_data_read_array[1]
+		storage[2] = save_data_read_array[2]
+		storage[3] = save_data_read_array[3]
+		for i in save_data_read_array[4]-1:
+			upgrade("booster")
+		for i in save_data_read_array[5]-1:
+			upgrade("storage")
+		for i in save_data_read_array[6]-1:
+			upgrade("minetool")
+		bank = save_data_read_array[7]
+
+func upgrade(item):
+	if item == "booster":
+		max_speed = max_speed * shop_upgrade_multiplier
+		booster_level += 1
+	if item == "minetool":
+		mining_multiplier = mining_multiplier + 1
+		mine_tool_level += 1
+	if item == "storage":
+		storage_level += 1
+		for i in len(storage_max):
+			storage_max[i] = round(storage_max[i] * shop_upgrade_multiplier)
+	else:
+		pass

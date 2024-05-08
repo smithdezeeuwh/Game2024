@@ -10,7 +10,7 @@ extends CanvasLayer
 @onready var mine_tool_button =$shop/MarginContainer_shop_buttons/upgrade_minetool
 @onready var storage_button =$shop/MarginContainer_shop_buttons/upgrade_storage
 @onready var booster_button =$shop/MarginContainer_shop_buttons/upgrade_booster
-
+@onready var loading_screen = $loading_screen
 
 
 #just values to be passed for ui 
@@ -21,7 +21,7 @@ var bank
 var booster_upgrade_cost
 var storage_upgrade_cost
 var mine_tool_upgrade_cost
-var storage_max
+var storage_max	
 #mining bar progress start
 var begin_mine = false
 var mining_multiplier = 1.0
@@ -91,3 +91,14 @@ func update_shop_text(text):
 func _on_sell_ore_button_down():
 	ship.shop("sell ore")
 
+func loading_astroids(bol):
+	if bol == true:
+		loading_screen.show()
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	else:
+		loading_screen.hide()
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+
+func _on_skip_loading_pressed():
+	loading_astroids(false)
