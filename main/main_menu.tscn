@@ -17,7 +17,6 @@ texture = ExtResource("1_ff21h")
 script = ExtResource("2_2a58o")
 
 [node name="Main" type="Control" parent="CanvasLayer"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -73,6 +72,7 @@ size_flags_vertical = 3
 text = "Quit"
 
 [node name="Settings" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -118,6 +118,7 @@ layout_mode = 2
 text = "DELETE SAVE"
 
 [node name="data_test" type="Button" parent="CanvasLayer/Settings/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "data test"
 
@@ -138,9 +139,9 @@ horizontal_alignment = 1
 [node name="Mapsize" type="HSlider" parent="CanvasLayer/Settings/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 min_value = 1.0
-step = 20.0
+max_value = 3.0
 value = 1.0
-tick_count = 5
+tick_count = 3
 
 [node name="SettingsBack" type="Button" parent="CanvasLayer/Settings/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

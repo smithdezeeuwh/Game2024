@@ -8,6 +8,8 @@ extends CanvasLayer
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	var file2 = FileAccess.open("user://" + "space_miner_save2.txt", FileAccess.READ)
+	map_size_label.text = "Map Size: " + str(file2.get_as_text(true))
 
 func _on_button_play_pressed():
 	get_tree().change_scene_to_file("res://main/space.tscn")
@@ -43,3 +45,5 @@ func _on_data_test_pressed():
 
 func _on_mapsize_value_changed(value):
 	map_size_label.text = "Map Size: " + str(value)
+	var file2 = FileAccess.open("user://" + "space_miner_save2.txt", FileAccess.WRITE)
+	file2.store_string(str(value))

@@ -182,7 +182,6 @@ func shop_visible(activation):
 	if activation == true:
 		UI.shop_visibility(true) 
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		
 	if activation == false:
 		UI.shop_visibility(false) 
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -192,7 +191,6 @@ func shop(command):
 		storage_func("sell", "n/a", "n/a")
 	if command == "upgrade booster":
 		if bank >= booster_upgrade_cost:
-			print(command)
 			upgrade("booster")
 			
 			bank -= booster_upgrade_cost
@@ -200,14 +198,12 @@ func shop(command):
 			
 	if command == "upgrade minetool":
 		if bank >= mine_tool_upgrade_cost and mining_multiplier !=50:
-			print(command)
 			bank -= mine_tool_upgrade_cost
 			mine_tool_upgrade_cost = round(mine_tool_upgrade_cost * 1.4)
 			upgrade("minetool")
 			
 	if command == "upgrade storage":
 		if bank >= storage_upgrade_cost: 
-			print(command)
 			bank -= storage_upgrade_cost
 			storage_upgrade_cost = round(storage_upgrade_cost * 1.4)
 			upgrade("storage")
