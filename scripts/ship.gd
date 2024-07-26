@@ -246,7 +246,7 @@ func loading_astroids(bol):
 
 #saves data for use in game scene
 func save_data_write_func():
-	var file = FileAccess.open("user://" + "space_miner_save.txt", FileAccess.WRITE)
+	var file = FileAccess.open("res://" + "space_miner_save.txt", FileAccess.WRITE)
 	save_data_write = [storage[0],storage[1],storage[2],storage[3],booster_level,storage_level,mine_tool_level,bank]
 	#print(str(save_data_write) + "write")
 	var save_string
@@ -255,7 +255,7 @@ func save_data_write_func():
 
 #used when opening game to old save
 func save_data_read_func():
-	var file = FileAccess.open("user://" + "space_miner_save.txt", FileAccess.READ)
+	var file = FileAccess.open("res://" + "space_miner_save.txt", FileAccess.READ)
 	var save_data_read_array: Array
 	save_data_read = file.get_as_text(true)
 	if int(save_data_read) != 0:

@@ -31,6 +31,7 @@ func _ready():
 
 
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	upadate_text()
@@ -102,3 +103,5 @@ func loading_astroids(bol):
 
 func _on_skip_loading_pressed():
 	loading_astroids(false)
+
+

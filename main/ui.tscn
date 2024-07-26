@@ -74,14 +74,34 @@ layout_mode = 2
 size_flags_vertical = 4
 size_flags_stretch_ratio = 0.0
 
+[node name="loading_screen" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_xbalb")
+
+[node name="skip_loading" type="Button" parent="loading_screen"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -156.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "skip loading screen"
+
 [node name="shop" type="Control" parent="."]
 visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_left = 539.0
-offset_top = 134.0
-offset_right = 612.0
-offset_bottom = 165.0
+offset_left = 966.0
+offset_top = 538.0
+offset_right = 966.0
+offset_bottom = 538.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="MarginContainer_shop" type="MarginContainer" parent="shop"]
 layout_mode = 1
@@ -114,7 +134,7 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -375.0
-offset_top = -125.0
+offset_top = -100.0
 offset_right = 375.0
 offset_bottom = 125.0
 grow_horizontal = 2
@@ -153,27 +173,9 @@ size_flags_vertical = 8
 text = "brokey
 "
 
-[node name="loading_screen" type="TextureRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_xbalb")
-
-[node name="skip_loading" type="Button" parent="loading_screen"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -156.0
-offset_top = -31.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "skip loading screen"
-
+[connection signal="pressed" from="loading_screen/skip_loading" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="loading_screen/skip_loading" to="." method="_on_skip_loading_pressed"]
 [connection signal="button_down" from="shop/MarginContainer_shop_buttons/upgrade_minetool" to="." method="_on_upgrade_minetool_button_down"]
 [connection signal="button_down" from="shop/MarginContainer_shop_buttons/upgrade_storage" to="." method="_on_upgrade_storage_button_down"]
 [connection signal="button_down" from="shop/MarginContainer_shop_buttons/upgrade_booster" to="." method="_on_upgrade_booster_button_down"]
 [connection signal="button_down" from="shop/MarginContainer_shop_buttons/sell_ore" to="." method="_on_sell_ore_button_down"]
-[connection signal="pressed" from="loading_screen/skip_loading" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="loading_screen/skip_loading" to="." method="_on_skip_loading_pressed"]

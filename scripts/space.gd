@@ -9,7 +9,7 @@ var MIN_SPAWN_RANGE = -200
 var map_size
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var file2 = FileAccess.open("user://" + "space_miner_save2.txt", FileAccess.READ)
+	var file2 = FileAccess.open("res://" + "space_miner_save2.txt", FileAccess.READ)
 	print(str(file2.get_as_text(true)))
 	var map_size = int(file2.get_as_text(true))
 	MAX_ASTROID_COUNT = MAX_ASTROID_COUNT * (10** map_size)
