@@ -83,7 +83,7 @@ var choice = "null"
 var ongoing_game = false
 var new_card
 var choice_loop = false
-var bank 
+var bank =0
 var betsliderposition = 0
 var player_bet = 0
 
@@ -163,7 +163,8 @@ func game_end():
 
 func _on_button_hit_pressed():
 	if not ongoing_game:
-		save_data_read_func()
+		bet_start(betsliderposition)
+		save_data_write_func()
 		game_reset()
 		ongoing_game = true
 	else:
